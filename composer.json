@@ -1,0 +1,29 @@
+{
+    "name": "oxyfony/model-bundle",
+    "type": "symfony-bundle",
+    "description": "Symfony Oxygen Bundle for Model manipulation",
+    "keywords": ["Oxygen", "ORM", "Model"],
+    "homepage": "http://oxygen.soletic.org",
+    "license": "MIT",
+    "authors": [
+        
+        {
+            "name": "Oxygen Community",
+            "homepage": "oxygen@soletic.org"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2",
+        "symfony/framework-bundle": "~2.3",
+        "doctrine/doctrine-bundle": "~1.2",
+        "doctrine/orm": "~2.2,>=2.2.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~3.7"
+    },
+    "autoload": {
+        "psr-0": { "Oxygen\\Bundle\\ModelBundle": "" }
+    },
+    "target-dir": "Oxygen/Bundle/ModelBundle",
+    "minimum-stability": "dev"
+}
