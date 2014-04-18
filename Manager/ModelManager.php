@@ -15,21 +15,37 @@ abstract class ModelManager {
 	
 	protected $class;
 	private $reflectionClass;
+	protected $alias;
 
 	/**
 	 * Build manager of a model
 	 *
 	 * @param string $class
+	 * @param string $alias
 	 * @throws \Exception Class doesn't exist
 	 */
-	public function __construct($class) {
+	public function __construct($class, $alias) {
 		if (!class_exists($class))
 			throw new \LogicException(sprintf("%s class doesn't exist", $class));
 		
 		$this->reflectionClass = new \ReflectionClass($class);
 		$this->class = $this->reflectionClass->getName();
+		$this->alias = $alias;
 	}
 	
+	/**
+	 * Return alias of model
+	 *
+	 * @return string
+	 */
+	public function getAlias() {
+		return $this->alias;
+	}
+	/**
+	 * Return fully qualified class name of model
+	 *
+	 * @return string
+	 */
 	public function getClassName() {
 		return $this->class;
 	}

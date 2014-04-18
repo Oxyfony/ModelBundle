@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                  http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="O2\Bundle\ModelBundle\Test\Entity\ModelExample" table="o2_test_example">
+        <id name="id" type="integer" column="id">
+        	<generator strategy="AUTO" />
+        </id>
+        <field name="createdAt" column="createdAt" type="datetime" nullable="true" />
+        <field name="arg1" column="arg1" type="string" nullable="true" />
+    </entity>
+    
+</doctrine-mapping>

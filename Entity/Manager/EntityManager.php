@@ -1,94 +1,58 @@
 <?php
-namespace Oxygen\FrameworkBundle\Model;
+namespace O2\Bundle\ModelBundle\Entity\Manager;
 
-use Oxygen\FrameworkBundle\Model\Event\ModelEvent;
-
-use Doctrine\ORM\EntityManager as EM;
+use Doctrine\ORM\EntityManager as DoctrineEntityManager;
 use Doctrine\ORM\EntityRepository;
-use Symfony\Component\DependencyInjection\ContainerAware;
+
+use O2\Bundle\ModelBundle\Manager\ModelManager;
 
 /**
  * Classe offrant des fonctions de gestion d'une entité
- * 
+ *
  * @author Laurent Chedanne <laurent@chedanne.pro>
  *
  */
 class EntityManager extends ModelManager {
 	
 	/**
-	 * @var EM
+	 * @var DoctrineEntityManager
 	 */
 	protected $em;
 	protected $repository;
 	protected $repositoryClass;
-	/**
-	 * Id (or entity path) for the entity
-	 * 
-	 * @var string
-	 */
-	protected $id;
 	
 	/**
-	 * 
-	 * @var Doctrine\ORM\Mapping\ClassMetadata
+	 *
+	 * @var \Doctrine\ORM\Mapping\ClassMetadata
 	 */
 	protected $meta;
 	
 	/**
 	 * Build manager of an entity
-	 * 
+	 *
 	 * @param string $class
 	 * @param string $repository (optional) Class repository
 	 */
-	public function __construct($class, $repository = null) {
+	public function __construct($class, $alias, $repository = null) {
 		$this->repositoryClass = $repository;
-		parent::__construct($class);
+		$this->class = $class;
+		$this->alias = $alias;
 	}
+
 	/**
-	 * Return id (or entity path) for the entity
-	 * 
-	 * @return string
+	 * Set the Doctrine Entity Manager
+	 *
+	 * @param DoctrineEntityManager $entityManager
 	 */
-	public function getId() {
-		return $this->id;
-	}
-	public function setId($id) {
-		$this->id = $id;
-	}
-	/**
-	 * (non-PHPdoc)
-	 * @see Oxygen\FrameworkBundle\Model.ModelManager::createInstance()
-	 * @throws \Exception Dispatcher not define in EntityManager
-	 */
-	public function createInstance() {
-		$entity = call_user_func_array('parent::createInstance', func_get_args());
-		if (is_null($this->dispatcher))
-			throw new \Exception("Dispatcher not define in EntityManager");
-		$this->dispatcher->dispatch(EntityEvents::created($this->getId()), new ModelEvent($entity));
-		return $entity;
-	}
-	/**
-	 * Remove entity from the database
-	 * 
-	 * @param mixed $entity
-	 * @throws \Exception Dispatcher not define in EntityManager
-	 */
-	public function remove($entity) {
-		if (is_null($this->dispatcher))
-			throw new \Exception("Dispatcher not define in EntityManager");
-		$this->dispatcher->dispatch(EntityEvents::beforeRemove($this->getId()), new ModelEvent($entity));
-		$this->em->remove($entity);
-		$this->dispatcher->dispatch(EntityEvents::afterRemove($this->getId()), new ModelEvent($entity));
-	}
-	/**
-	 * Init the manager of the entity
-	 * 
-	 * @param EM $entityManager
-	 */
-	public function load(EM $entityManager) {
+	public function setDoctrineEntityManager(DoctrineEntityManager $entityManager) {
+		if (!is_null($this->meta))
+			return;
+		
 		$this->em = $entityManager;
 		$this->meta = $this->em->getClassMetadata($this->class);
-		$matches = array();
+		
+		parent::__construct($this->meta->getName(), $this->alias, $this->repositoryClass);
+		
 		//Vérification si le repository est un parameter
 		if (!is_null($this->repositoryClass)) {
 			$this->meta->setCustomRepositoryClass($this->repositoryClass);

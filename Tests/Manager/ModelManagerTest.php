@@ -1,5 +1,5 @@
 <?php
-namespace O2\Bundle\ModelBundle\Tests\Model;
+namespace O2\Bundle\ModelBundle\Tests\Manager;
 
 /**
  * Unit test of ModelManager
@@ -19,7 +19,7 @@ class ModelManagerTest extends \PHPUnit_Framework_TestCase
 	{
 		// Exception test
 		try {
-			$manager = $this->getMockForAbstractClass('O2\Bundle\ModelBundle\Manager\ModelManager', array('ModelExample'));
+			$manager = $this->getMockForAbstractClass('O2\Bundle\ModelBundle\Manager\ModelManager', array('ModelExample', 'o2_model.example'));
 		} catch (\LogicException $e) {
 			return;
 		}
@@ -34,8 +34,9 @@ class ModelManagerTest extends \PHPUnit_Framework_TestCase
 	public function testConstructor()
 	{
 		// getClassName
-		$manager = $this->getMockForAbstractClass('O2\Bundle\ModelBundle\Manager\ModelManager', array('O2\Bundle\ModelBundle\Test\Model\ModelExample'));
+		$manager = $this->getMockForAbstractClass('O2\Bundle\ModelBundle\Manager\ModelManager', array('O2\Bundle\ModelBundle\Test\Model\ModelExample', 'o2_model.example'));
 		$this->assertTrue($manager->getClassName() == 'O2\Bundle\ModelBundle\Test\Model\ModelExample', "ModelManager->getClassName Error");
+		$this->assertTrue($manager->getAlias() == 'o2_model.example', "ModelManager->getAlias Error");
 	}
 	
 	/**
@@ -45,7 +46,7 @@ class ModelManagerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreateInstance()
 	{
-		$manager = $this->getMockForAbstractClass('O2\Bundle\ModelBundle\Manager\ModelManager', array('O2\Bundle\ModelBundle\Test\Model\ModelExample'));
+		$manager = $this->getMockForAbstractClass('O2\Bundle\ModelBundle\Manager\ModelManager', array('O2\Bundle\ModelBundle\Test\Model\ModelExample', 'o2_model.example'));
 		$i1 = $manager->createInstance();
 		$this->assertNull($i1->getArg1());
 		$i2 = $manager->createInstance('test');
