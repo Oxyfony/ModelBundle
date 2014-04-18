@@ -22,8 +22,8 @@
         "phpunit/phpunit": "~3.7"
     },
     "autoload": {
-        "psr-0": { "02\\Bundle\\ModelBundle": "" }
+        "psr-0": { "0xygen\\Bundle\\ModelBundle": "" }
     },
-    "target-dir": "O2/Bundle/ModelBundle",
+    "target-dir": "Oxygen/Bundle/ModelBundle",
     "minimum-stability": "dev"
 }
