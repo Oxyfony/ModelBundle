@@ -1,7 +1,7 @@
 <?php
 namespace O2\Bundle\ModelBundle\Tests\Manager;
 
-use O2\Bundle\ModelBundle\Test\Doctrine\EntityManager;
+use O2\Bundle\ModelBundle\Test\Doctrine\EntityManager as DoctrineEntityManagerTest;
 use O2\Bundle\ModelBundle\Entity\Manager\EntityManager as O2EntityManager;
 
 /**
@@ -13,7 +13,7 @@ use O2\Bundle\ModelBundle\Entity\Manager\EntityManager as O2EntityManager;
 class EntityManagerTest extends \PHPUnit_Framework_TestCase
 {
 	
-	use EntityManager;
+	use DoctrineEntityManagerTest;
 
 	/**
 	 * Test constructor failed

@@ -4,7 +4,7 @@ namespace O2\Bundle\ModelBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Oxygen\FrameworkBundle\DependencyInjection\Compiler\ModelManagerCompilerPass;
+use O2\Bundle\ModelBundle\DependencyInjection\Compiler\ModelManagerCompilerPass;
 
 class O2ModelBundle extends Bundle
 {

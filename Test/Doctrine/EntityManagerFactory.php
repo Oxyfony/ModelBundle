@@ -7,30 +7,18 @@ use Doctrine\ORM\Configuration;
 use Doctrine\Common\Cache\ArrayCache;
 use Doctrine\ORM\Tools\SchemaTool;
 use Doctrine\Common\Persistence\Mapping\RuntimeReflectionService;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
- * Trait to provide tools of isolating database bundle test
- *
- * Thanks to tutorial of Kitpages : http://www.kitpages.fr/fr/cms/139/tests-unitaire-d_un-bundle-symfony2-avec-doctrine2
+ * Factory for service doctrine.orm.entity_manager
  *
  * @author Laurent Chedanne <laurent@chedanne.pro>
  *
  */
-trait EntityManager {
+class EntityManagerFactory
+{
 	
-	private $em = null;
-	
-	/**
-	 * Return the Entity Manager with database schema created in SQLLite
-	 *
-	 * @return DoctrineEntityManager
-	 */
-	protected function getEntityManager()
+	public function get()
 	{
-		if (!is_null($this->em))
-			return $this->em;
-		
 		// Bundle namespace
 		$bundleNamespace = explode('\\', __NAMESPACE__);
 		array_pop($bundleNamespace); array_pop($bundleNamespace);
@@ -75,15 +63,6 @@ trait EntityManager {
 			$config,
 			$eventManager
 		);
-		
-		// Create schema
-		$schemaTool = new SchemaTool($em);
-		$cmf = $em->getMetadataFactory();
-		$classes = $cmf->getAllMetadata();
-		$schemaTool->dropDatabase();
-		$schemaTool->createSchema($classes);
-	
 		return $em;
 	}
-	
 }

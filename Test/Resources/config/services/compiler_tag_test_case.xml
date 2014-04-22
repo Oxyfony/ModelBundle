@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="o2_model.entity.model_example.manager1">
+        	<tag name="o2_model.manager" type="entity" class="O2ModelTestBundle:ModelExample" alias="o2_model_test.model_example" />
+        </service>
+    </services>
+</container>

@@ -1,5 +1,5 @@
 <?php
-namespace Oxygen\FrameworkBundle\DependencyInjection\Compiler;
+namespace O2\Bundle\ModelBundle\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Definition;
 
@@ -28,6 +28,6 @@ class ModelManagerCompilerPass implements CompilerPassInterface
 			return;
 		
 		$managerBuilder = new ManagerBuilder($container);
-		$managerBuilder->buildServices($managers);
+		$managerBuilder->completeServices($managers);
 	}
 }
