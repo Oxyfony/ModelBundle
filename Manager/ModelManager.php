@@ -1,4 +1,12 @@
 <?php
+/**
+ * This file is part of the Oxygen Bundle Package.
+ *
+ * (c) 2014 Oxyfony
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 namespace O2\Bundle\ModelBundle\Manager;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -60,5 +68,13 @@ abstract class ModelManager {
 		$class = new \ReflectionClass($this->class);
 		return $class->newInstanceArgs(func_get_args());
 	}
+	
+	/**
+	 * Save datas from the model managed
+	 *
+	 * @param object|array $models
+	 * @param array $options
+	 */
+	abstract public function save($models, array $options = array());
 
 }

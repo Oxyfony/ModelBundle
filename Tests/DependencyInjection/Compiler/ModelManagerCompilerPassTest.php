@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * This file is part of the Oxygen Bundle Package.
+ *
+ * (c) 2014 Oxyfony
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 namespace O2\Bundle\ModelBundle\Tests\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -11,6 +18,9 @@ use Symfony\Component\Config\FileLocator;
  * Unit test for O2ModelExtension class
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
+ *
+ * @author Laurent Chedanne <laurent@chedanne.pro>
+ *
  */
 class ModelManagerCompilerPassTest extends \PHPUnit_Framework_TestCase
 {
