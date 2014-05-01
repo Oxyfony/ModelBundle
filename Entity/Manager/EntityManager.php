@@ -153,15 +153,35 @@ class EntityManager extends ModelManager
 	}
 	
 	/**
-	 * Flush entities persisted
+	 * Flush all data of this entity
 	 *
 	 */
 	public function flush() {
+		$entities = array();
+		// Persisted
+		$entitiesManaged = $this->em->getUnitOfWork()->getScheduledEntityInsertions();
+		foreach($entitiesManaged as $entity) {
+			if (get_class($entity) == $this->getClassName()) {
+				$entities[$this->em->getUnitOfWork()->getSingleIdentifierValue($entity)] = $entity;
+			}
+		}
+		// Updated
 		$map = $this->em->getUnitOfWork()->getIdentityMap();
 		if (isset($map[$this->getClassName()])) {
 			foreach($map[$this->getClassName()] as $entity) {
-				$this->em->flush($entity);
+				$entities[$this->em->getUnitOfWork()->getSingleIdentifierValue($entity)] = $entity;
 			}
 		}
+		// Removed
+		$entitiesManaged = $this->em->getUnitOfWork()->getScheduledEntityDeletions();
+		foreach($entitiesManaged as $entity) {
+			if (get_class($entity) == $this->getClassName()) {
+				$identifier = $this->em->getUnitOfWork()->getSingleIdentifierValue($entity);
+				if (!array_key_exists($this->em->getUnitOfWork()->getSingleIdentifierValue($entity), $array)) {
+					$entities[$identifier] = $entity;
+				}
+			}
+		}
+		$this->em->flush($entities);
 	}
 }
