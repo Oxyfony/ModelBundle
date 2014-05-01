@@ -157,13 +157,9 @@ class EntityManager extends ModelManager
 	 *
 	 */
 	public function flush() {
-		$entities = array_merge(
-			$this->em->getUnitOfWork()->getScheduledEntityInsertions(),
-			$this->em->getUnitOfWork()->getScheduledEntityUpdates(),
-			$this->em->getUnitOfWork()->getScheduledEntityDeletions()
-		);
-		foreach($entities as $entity) {
-			if (get_class($entity) == $this->getClassName()) {
+		$map = $this->em->getUnitOfWork()->getIdentityMap();
+		if (isset($map[$this->getClassName()])) {
+			foreach($map[$this->getClassName()] as $entity) {
 				$this->em->flush($entity);
 			}
 		}
