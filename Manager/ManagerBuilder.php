@@ -87,7 +87,8 @@ class ManagerBuilder {
 					
 				switch($attributes['type']) {
 					case 'entity':
-						if (empty($this->container->getDefinition($service_id)->getClass()))
+						$class = $this->container->getDefinition($service_id)->getClass();
+						if (empty($class))
 							$this->container->getDefinition($service_id)->setClass('O2\Bundle\ModelBundle\Entity\Manager\EntityManager');
 						$this->container->getDefinition($service_id)->addArgument($attributes['class']);
 						$this->container->getDefinition($service_id)->addArgument($alias);
