@@ -177,7 +177,7 @@ class EntityManager extends ModelManager
 		foreach($entitiesManaged as $entity) {
 			if (get_class($entity) == $this->getClassName()) {
 				$identifier = $this->em->getUnitOfWork()->getSingleIdentifierValue($entity);
-				if (!array_key_exists($this->em->getUnitOfWork()->getSingleIdentifierValue($entity), $array)) {
+				if (!array_key_exists($this->em->getUnitOfWork()->getSingleIdentifierValue($entity), $entities)) {
 					$entities[$identifier] = $entity;
 				}
 			}
